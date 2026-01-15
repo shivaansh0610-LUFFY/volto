@@ -101,9 +101,6 @@ const messages = defineMessages({
   },
 });
 
-/**
- * Controlpanels container class.
- */
 export default function Controlpanels({ location }) {
   const intl = useIntl();
   const [isClient, setIsClient] = useState(false);
@@ -137,6 +134,7 @@ export default function Controlpanels({ location }) {
         return el;
       })
     : [];
+
   const { filterControlPanels } = config.settings;
 
   const filteredControlPanels = map(
@@ -197,6 +195,7 @@ export default function Controlpanels({ location }) {
       id: last(controlpanel['@id'].split('/')),
     }),
   );
+
   const groups = map(uniqBy(filteredControlPanels, 'group'), 'group');
   const { controlPanelsIcons: icons } = config.settings;
 
@@ -208,13 +207,14 @@ export default function Controlpanels({ location }) {
           <Segment className="primary">
             <FormattedMessage id="Site Setup" defaultMessage="Site Setup" />
           </Segment>
-          {systemInformation && systemInformation.upgrade && (
+
+          {systemInformation?.upgrade && (
             <Message attached warning>
               <FormattedMessage
                 id="The site configuration is outdated and needs to be upgraded."
                 defaultMessage="The site configuration is outdated and needs to be upgraded."
               />{' '}
-              <Link to={`/controlpanel/plone-upgrade`}>
+              <Link to="/controlpanel/plone-upgrade">
                 <FormattedMessage
                   id="Please continue with the upgrade."
                   defaultMessage="Please continue with the upgrade."
@@ -222,6 +222,7 @@ export default function Controlpanels({ location }) {
               </Link>
             </Message>
           )}
+
           {map(groups, (group) => [
             <Segment key={`header-${group}`} secondary>
               {group}
@@ -255,6 +256,7 @@ export default function Controlpanels({ location }) {
             </Segment>,
           ])}
         </Segment.Group>
+
         <Segment.Group raised>
           <Segment className="primary">
             <FormattedMessage
@@ -269,11 +271,13 @@ export default function Controlpanels({ location }) {
           </Segment>
         </Segment.Group>
       </Container>
+
       {isClient &&
         createPortal(
           <Toolbar
             pathname={pathname}
             hideDefaultViewButtons
+            showUserMenu
             inner={
               <Link to="/" className="item">
                 <Icon
