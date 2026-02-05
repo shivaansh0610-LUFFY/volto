@@ -1,0 +1,1 @@
+Documented known Volto development watcher issue where file changes may stop triggering recompilation due to operating system file watcher limits. @shivaansh0610-LUFFY
