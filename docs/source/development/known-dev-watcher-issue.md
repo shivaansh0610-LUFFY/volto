@@ -3,7 +3,7 @@ myst:
   html_meta:
     "description": "Known development watcher issues in Volto"
     "property=og:description": "Known development watcher issues in Volto"
-    "property=og:title": "Known development watcher issues"
+    "property=og:title": "Known development watcher issues in Volto"
     "keywords": "Volto, development, watcher, inotify, webpack"
 ---
 
