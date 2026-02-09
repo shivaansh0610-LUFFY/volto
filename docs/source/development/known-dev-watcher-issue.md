@@ -32,24 +32,26 @@ Volto uses file watchers to detect file changes during development.
 Operating systems limit the number of files that can be watched at the same time.
 When the limit is reached, new file watchers cannot be created.
 
-## Solution for Linux
+## Solution
 
-Increase the inotify watcher limit.
+Increase the file watcher limit according to your operating system.
 
-Run the following command.
+`````{tab-set}
 
-```bash
+````{tab-item} Linux
+Increase the `inotify` watcher limit.
+
+```shell
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
+````
 
-## Solution for macOS
+````{tab-item} macOS
+Try increasing the maximum number of open files via `ulimit`.
 
-macOS uses a different file watching mechanism than Linux.
-
-If you encounter file watcher limits, you can try increasing the maximum number
-of open files.
-
-```bash
+```shell
 ulimit -n 1048576
 ```
+````
+`````
