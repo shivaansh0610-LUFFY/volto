@@ -64,6 +64,10 @@ const Register = () => {
   const [errors, setError] = useState(null);
   const { loaded, loading, error } = useUsers();
 
+  const useEmailAsLogin = useSelector(
+    (state) => state.site.data?.security?.use_email_as_login,
+  );
+
   const prevloading = usePrevious(loading);
 
   useEffect(() => {
@@ -81,13 +85,15 @@ const Register = () => {
 
   const onSubmit = (data) => {
     const { fullname, email } = data;
-    dispatch(
-      createUser({
-        fullname: fullname,
-        email: email,
-        sendPasswordReset: true,
-      }),
-    );
+    const payload = {
+      fullname,
+      email,
+      sendPasswordReset: true,
+    };
+    if (!useEmailAsLogin) {
+      payload.username = email;
+    }
+    dispatch(createUser(payload));
     setError(null);
   };
 
